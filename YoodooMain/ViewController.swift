@@ -10,10 +10,17 @@ import FSCalendar
 
 class ViewController: UIViewController {
     
+    let formatter = DateFormatter()
+    let now = Date()
+    var array: [Int]?
+    
     @IBOutlet weak var calender: FSCalendar!
+    @IBOutlet weak var timeTableView: UITableView!
     @IBOutlet weak var calenderHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
+    var timeStampArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +28,11 @@ class ViewController: UIViewController {
         calender.delegate = self
         calender.dataSource = self
         
+        timeTableView.delegate = self
+        timeTableView.dataSource = self
+        
         getCurrentMonth()
+//        calculate(date: )
         
         calender.scope = .week
         calender.calendarHeaderView.removeFromSuperview()
@@ -33,6 +44,8 @@ class ViewController: UIViewController {
         calender.appearance.selectionColor = .blue.withAlphaComponent(0.5)
         calender.appearance.todayColor = .gray
         calender.appearance.weekdayTextColor = .black
+        
+        timeTableView.register(UINib(nibName: "TimeTableViewCell", bundle: nil), forCellReuseIdentifier: "timecell")
 
     }
     
@@ -43,8 +56,30 @@ class ViewController: UIViewController {
         let monthName = DateFormatter().monthSymbols[month - 1]
         self.monthLabel.text = monthName
     }
+    
+    func calculate(date: Date) {
+        timeStampArray = []
+        for i in 0...24 {
+            
+            let oneHourAgo = Calendar.current.date(byAdding: .hour, value: i, to: date)
+            if Calendar.current.isDate(date, inSameDayAs: oneHourAgo ?? Date()){
+                formatter.dateFormat = "h:mm a"
+                let stringDate = formatter.string(from: oneHourAgo!)
+                timeStampArray.append(stringDate)
+                print(timeStampArray)
+            } else {
+                print("Different")
+            }
+            
+            self.timeTableView.reloadData()
+        }
+    }
 
-
+    @IBAction func datePickerChanged(_ sender: Any) {
+        print(datePicker.date)
+        calculate(date: datePicker.date)
+    }
+    
 }
 
 extension ViewController: FSCalendarDelegate, FSCalendarDataSource {
@@ -68,3 +103,22 @@ extension ViewController: FSCalendarDelegate, FSCalendarDataSource {
     
 }
 
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return timeStampArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "timecell") as! TimeTableViewCell
+        let times = timeStampArray[indexPath.row]
+        cell.timeStamp.text = times
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    
+}

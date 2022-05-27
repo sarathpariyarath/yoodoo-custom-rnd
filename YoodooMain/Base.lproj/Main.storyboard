@@ -28,28 +28,50 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haA-KH-6vs" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="106" width="414" height="500"/>
+                                <rect key="frame" x="0.0" y="106" width="414" height="300"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="JJi-V6-nth"/>
+                                    <constraint firstAttribute="height" constant="300" id="JJi-V6-nth"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sTM-pW-D6b">
+                                <rect key="frame" x="0.0" y="406" width="414" height="456"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            </tableView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="f7k-gj-Xcl">
+                                <rect key="frame" x="114" y="44" width="300" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="R6u-lg-eI2"/>
+                                    <constraint firstAttribute="width" constant="300" id="RBe-g5-4p1"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="nQ2-x3-Jx2"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="sTM-pW-D6b" firstAttribute="top" secondItem="haA-KH-6vs" secondAttribute="bottom" id="4yQ-XM-kSU"/>
                             <constraint firstItem="haA-KH-6vs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BXP-e3-Wr5"/>
+                            <constraint firstItem="f7k-gj-Xcl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="FYA-i1-drG"/>
+                            <constraint firstItem="sTM-pW-D6b" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="NaH-hL-12s"/>
                             <constraint firstItem="w0e-iH-ijb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Q6O-AI-can"/>
                             <constraint firstItem="haA-KH-6vs" firstAttribute="top" secondItem="w0e-iH-ijb" secondAttribute="bottom" constant="8" symbolic="YES" id="UfR-ZK-Pzd"/>
+                            <constraint firstItem="sTM-pW-D6b" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cEM-bJ-IDO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="w0e-iH-ijb" secondAttribute="trailing" constant="20" id="doO-zD-fon"/>
+                            <constraint firstItem="f7k-gj-Xcl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hd0-c7-CIw"/>
                             <constraint firstItem="w0e-iH-ijb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="krP-NV-ta5"/>
+                            <constraint firstItem="sTM-pW-D6b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qls-TB-YqL"/>
                             <constraint firstItem="haA-KH-6vs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yD6-7x-roj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="calender" destination="haA-KH-6vs" id="oea-wS-f2n"/>
                         <outlet property="calenderHeightConstraint" destination="JJi-V6-nth" id="KtJ-Qa-BQP"/>
+                        <outlet property="datePicker" destination="f7k-gj-Xcl" id="iGQ-Ak-8Xz"/>
                         <outlet property="monthLabel" destination="w0e-iH-ijb" id="8zX-d6-yVE"/>
+                        <outlet property="timeTableView" destination="sTM-pW-D6b" id="kou-HQ-Yy7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -60,6 +82,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
